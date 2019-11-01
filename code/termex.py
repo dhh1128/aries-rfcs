@@ -115,7 +115,6 @@ def extract_from_markdown(content):
         md = get_markdown_context(content, match)
         descrip = squeeze(strip_tags(md))
         print(match.group(1) + ':\n' + descrip + '\n\n')
-        print(descrip)
 
 
 respec_termdef_pat = re.compile((r'<dfn([^>]+)?>(.*?)</dfn\s*>'))
