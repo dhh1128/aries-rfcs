@@ -112,9 +112,10 @@ def get_markdown_context(content, match):
 markdown_termdef_pat = re.compile(r'\W__([A-Za-z].*?)__')
 def extract_from_markdown(content):
     for match in markdown_termdef_pat.finditer(content):
+        term = cleanup(match.group(1))
         md = get_markdown_context(content, match)
-        descrip = squeeze(strip_tags(md))
-        print(match.group(1) + ':\n' + descrip + '\n\n')
+        descrip = cleanup(md)
+        print(term + ':\n' + descrip + '\n\n')
 
 
 respec_termdef_pat = re.compile((r'<dfn([^>]+)?>(.*?)</dfn\s*>'))
@@ -134,7 +135,7 @@ def get_respec_context(content, reversed, match):
     begin_tag = tag_extractor_pat.match(content, len(content) - beginner.end())
     end_tag_pat = re.compile(r'</%s>' % begin_tag.group(1))
     end_tag = end_tag_pat.search(content, match.end())
-    return content[begin_tag.end():end_tag.start()].strip()
+    return content[begin_tag.end():end_tag.start()]
 
 
 tag_pat = re.compile(r'</?[-a-zA-Z0-9_]+(\s+[^>]*?)?>')
@@ -143,7 +144,10 @@ def strip_tags(txt):
 
 ws_pat = re.compile('[ \t\r\n]+')
 def squeeze(txt):
-    return ws_pat.sub(' ', txt)
+    return ws_pat.sub(' ', txt).strip()
+
+def cleanup(txt):
+    return squeeze(strip_tags(txt.replace('&nbsp;', ' ').replace('--', '—')))
 
 
 def extract_from_respec(content):
@@ -153,19 +157,34 @@ def extract_from_respec(content):
     reversed = content[::-1]
     for match in respec_termdef_pat.finditer(content):
         html = get_respec_context(content, reversed, match)
-        descrip = squeeze(strip_tags(html))
+        descrip = cleanup(html)
         print(match.group(2) + ':\n' + descrip + '\n\n')
+
+
+glossary_term_pat = re.compile('<h2[^>]+>(.*?)</h2><p[^>]+>(.*?)</p>\s*<h')
+see_appendix_pat = re.compile('See [aA]ppendix [A-Z]( and Appendix [A-Z])?[.]?$')
+def extract_from_glossary(content):
+    for match in glossary_term_pat.finditer(content):
+        term = cleanup(match.group(1))
+        definition = cleanup(match.group(2))
+        m = see_appendix_pat.search(definition)
+        if m:
+            definition = definition[:m.start()].rstrip()
+        print(term + ':\n' + definition + '\n\n')
+
 
 
 def extract_from_content(content, content_type):
     if content_type == 'markdown':
         extract_from_markdown(content)
+    elif content_type == 'glossary':
+        extract_from_glossary(content)
     else:
         extract_from_respec(content)
 
 
 def extract_from_repo(section, root):
-    for content_type in ['markdown', 'respec']:
+    for content_type in ['markdown', 'respec', 'glossary']:
         for i in range(1, 1000):
             pat_name = '%s pat %s' % (content_type, i)
             print(pat_name)
@@ -179,8 +198,19 @@ def extract_from_repo(section, root):
                 break
 
 
+html_detector_pat = re.compile('<html', re.I)
+def get_content_type_from_content(content):
+    prefix = content[:200]
+    if html_detector_pat.search(prefix):
+        return "glossary" if is_googledocs(f.read()) else "respec"
+    return "markdown"
+
+
 def get_content_type_from_path(path):
-    return "markdown" if path.endswith('.md') else 'respec'
+    if path.endswith('.md') or path.endswith('.rst'):
+        return "markdown"
+    with open(path, 'rt') as f:
+        return get_content_type_from_content(f.read())
 
 
 def extract_from_source(cfg, section, out, repos):
@@ -190,7 +220,7 @@ def extract_from_source(cfg, section, out, repos):
         extract_from_repo(section, root)
     elif '://' in source:
         content = fetch_web(source)
-        extract_from_content(content, 'respec')
+        extract_from_content(content, get_content_type_from_content(content))
     else:
         path = os.path.normpath(os.path.join(os.path.dirname(cfg), source))
         if os.path.isdir(path):
@@ -203,9 +233,9 @@ def extract_from_source(cfg, section, out, repos):
             raise Exception("Unrecognized type for source %s -- doesn't seem to be git repo, URI, or local folder." % source)
 
 
-def accessible_default_folder():
-    if not os.path.isdir(folder):
-        os.makedirs(folder)
+gdocs_detector_pat = re.compile(r'@import url\(\'https://themes.googleusercontent')
+def is_googledocs(html):
+    return gdocs_detector_pat.search(html)
 
 
 def main(cfg, out, repos):
