@@ -109,7 +109,7 @@ def get_markdown_context(content, match):
     return content[begin:end].strip()
 
 
-markdown_termdef_pat = re.compile(r'\W__([A-Za-z].*?)__')
+markdown_termdef_pat = re.compile(r'(?<=\W)__([A-Za-z].*?)__')
 def extract_from_markdown(content):
     for match in markdown_termdef_pat.finditer(content):
         term = md_cleanup(match.group(1))
