@@ -112,13 +112,14 @@ def get_markdown_context(content, match):
 markdown_termdef_pat = re.compile(r'\W__([A-Za-z].*?)__')
 def extract_from_markdown(content):
     for match in markdown_termdef_pat.finditer(content):
-        term = cleanup(match.group(1))
+        term = md_cleanup(match.group(1))
         md = get_markdown_context(content, match)
-        descrip = cleanup(md)
+        descrip = md_cleanup(md)
         print(term + ':\n' + descrip + '\n\n')
 
 
 respec_termdef_pat = re.compile((r'<dfn([^>]+)?>(.*?)</dfn\s*>'))
+alt_terms_pat = re.compile('data-lt="([^"]+)"')
 # We want to find this regex searching backward: <(div|p|dt|li|dd)(\s+[^>]*)?>
 # However, normal regex doesn't let us search for a regex going backward, and
 # a simple reversal of the regex's pattern characters won't produce a valid
@@ -127,14 +128,21 @@ respec_termdef_pat = re.compile((r'<dfn([^>]+)?>(.*?)</dfn\s*>'))
 # that comes before.
 respec_section_beginner_pat = re.compile(r'>([^<]*\s*)?(vid|p|td|il|dd)\s*<', re.I)
 tag_extractor_pat = re.compile(r'<\s*(div|p|dt|li|dd)(\s+[^>]*)?>', re.I)
+next_dd_pat = re.compile(r'\s*<dd(\s+[^>]*)?>', re.I)
+end_dd_pat = re.compile(r'</dd>', re.I)
 
 def get_respec_context(content, reversed, match):
     # Search forward in the reversed string, looking for a tag that's able to begin
     # a paragraph.
     beginner = respec_section_beginner_pat.search(reversed, len(content) - match.start())
     begin_tag = tag_extractor_pat.match(content, len(content) - beginner.end())
-    end_tag_pat = re.compile(r'</%s>' % begin_tag.group(1))
+    begin_tag_name = begin_tag.group(1)
+    end_tag_pat = re.compile(r'</%s>' % begin_tag_name)
     end_tag = end_tag_pat.search(content, match.end())
+    # <dt> tags require special handling; the def is in the next <dd>
+    if begin_tag_name == 'dt':
+        begin_tag = next_dd_pat.match(content, end_tag.end())
+        end_tag = end_dd_pat.search(content, begin_tag.end())
     return content[begin_tag.end():end_tag.start()]
 
 
@@ -150,15 +158,54 @@ def cleanup(txt):
     return squeeze(strip_tags(txt.replace('&nbsp;', ' ').replace('--', '—')))
 
 
+markdown_link_pat = re.compile(r'\[([^\][(]+)\]\(([^)]+)\)', re.S)
+def strip_markdown(txt):
+    while True:
+        m = markdown_link_pat.search(txt)
+        if m:
+            txt = txt[:m.start()] + m.group(1).strip() + txt[m.end():]
+        else:
+            break
+    return squeeze(txt)
+
+
+def md_cleanup(txt):
+    return squeeze(strip_markdown(strip_tags(txt.replace('&nbsp;', ' ').replace('--', '—'))))
+
+
+def same_except_for_s(a, b):
+    return a == b + 's' or a + 's' == b
+
+
+def get_alts(term, attribs):
+    alt_terms = []
+    if attribs:
+        m = alt_terms_pat.search(attribs)
+        if m:
+            alt_terms = [x for x in [x.strip() for x in m.group(1).split('|')] if x.replace("'",'') != term]
+            for i in range(len(alt_terms)):
+                alt = alt_terms[i]
+                if same_except_for_s(term, alt):
+                    if term.endswith('s'):
+                        term = alt
+                    alt_terms.remove(alt)
+                    break
+    return term, alt_terms
+
+
 def extract_from_respec(content):
     # Generate a reversed version of the content once. We need this so we can search
     # backward for regexes, and generating it once instead of many times will save
     # enormous amounts of effort.
     reversed = content[::-1]
     for match in respec_termdef_pat.finditer(content):
-        html = get_respec_context(content, reversed, match)
-        descrip = cleanup(html)
-        print(match.group(2) + ':\n' + descrip + '\n\n')
+        term = cleanup(match.group(2))
+        term, alt_terms = get_alts(term, match.group(1))
+        descrip = cleanup(get_respec_context(content, reversed, match))
+        header = term
+        if alt_terms:
+            header += ' ('+ ', '.join(alt_terms) + ')'
+        print(header + '\n' + descrip + '\n\n')
 
 
 glossary_term_pat = re.compile('<h2[^>]+>(.*?)</h2><p[^>]+>(.*?)</p>\s*<h')
@@ -171,7 +218,6 @@ def extract_from_glossary(content):
         if m:
             definition = definition[:m.start()].rstrip()
         print(term + ':\n' + definition + '\n\n')
-
 
 
 def extract_from_content(content, content_type):
