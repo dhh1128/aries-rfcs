@@ -56,7 +56,7 @@ section of an overall route, and can degrade privacy selectively.
 ### Decorator
 
 Tracing is requested by decorating the JSON plaintext of an DIDComm message (which will
- often be a __forward__ message, but could also be the terminal message unpacked
+ often be a `forward` message, but could also be the terminal message unpacked
  and handled at its final destination) with the
 `~trace` attribute. Here is the simplest possible example:
 

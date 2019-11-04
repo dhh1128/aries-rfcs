@@ -89,16 +89,16 @@ required.
 
 ### What the Casual Developer Needs to Know
 
-* __The `@` character in rich schema objects is reserved for JSON-LD-isms__.
+* **The `@` character in rich schema objects is reserved for JSON-LD-isms**.
 Any usage of JSON keys that begin with this character is required to be
 JSON-LD-compatible, and any time you see it, you are seeing JSON-LD at
 work.
 
-* __`@context` and `@type` are required at the root of every object__. The
+* **`@context` and `@type` are required at the root of every object**. The
 meaning of these fields in rich schema objects matches JSON-LD's
 expectations, but you don't need to learn JSON-LD to use them.
 
-* __JSON-LD's more advanced mechanisms are an option__--not invoked ad hoc
+* **JSON-LD's more advanced mechanisms are an option**--not invoked ad hoc
 for every type of rich schema object, but specified in the formal
 description of each rich schema object. Most rich schema objects use no
 more JSON-LD than `@context`, `@type`, and `@id`.

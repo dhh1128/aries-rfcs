@@ -22,7 +22,7 @@ We will explain how DIDs are exchanged, with the roles, states, and messages req
 
 ### Roles
 
-The DID Exchange Protocol uses two roles: __inviter__ and __invitee__.
+The DID Exchange Protocol uses two roles: **inviter** and **invitee**.
 
 The _inviter_ is the party that initiates the protocol with an `invitation` message. This party
 must already have an agent and be capable of creating DIDs and endpoints

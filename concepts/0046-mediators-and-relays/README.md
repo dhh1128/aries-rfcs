@@ -80,7 +80,7 @@ Bob. Please forward."
 
 ![scenario2.png](scenario2.png)
 
-Here, Carl is acting as a __mediator__. He is mostly just passing messages along. But
+Here, Carl is acting as a **mediator**. He is mostly just passing messages along. But
 because he is processing a message himself, and because Carl is interposed between
 Alice and Bob, he affects the behavior of the sender. He is a known entity in the
 route.
@@ -95,7 +95,7 @@ Bob.
 
 ![scenario3.png](scenario3.png)
 
-In this scenario, Darla is acting as a __relay__. Note that Bob arranges for Darla to
+In this scenario, Darla is acting as a **relay**. Note that Bob arranges for Darla to
 do this *without notifying Alice*, and that *Alice does not need to adjust her behavior
 in any way for the relay to work*.
 

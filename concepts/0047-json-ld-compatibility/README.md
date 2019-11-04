@@ -61,28 +61,28 @@ benefit from the accessibility of ordinary JSON, but leave an easy path for
 more sophisticated JSON-LD-driven patterns when the need arises. We therefore
 set for ourselves this goal:
 
-> __Be compatible__ with JSON-LD, such that advanced use cases can take advantage
-  of it where it makes sense, __but impose no dependencies__ on the mental model or
+> **Be compatible** with JSON-LD, such that advanced use cases can take advantage
+  of it where it makes sense, **but impose no dependencies** on the mental model or
   the tooling of JSON-LD for the casual developer.
 
 ### What the Casual Developer Needs to Know
 
-* __The `@` character in DIDComm messages is reserved for JSON-LD-isms__. Any usage
+* **The `@` character in DIDComm messages is reserved for JSON-LD-isms**. Any usage
 of JSON keys that begin with this character is required to be JSON-LD-compatible,
 and any time you see it, you are seeing JSON-LD at work.
 
-* __`@type` and `@id` are required at the root of every message__. The meaning of
+* **`@type` and `@id` are required at the root of every message**. The meaning of
 these fields in DIDComm matches JSON-LD's expectations, but you don't need to learn
 JSON-LD to use them.
 
-* __JSON-LD's more advanced mechanisms are an option__--not invoked ad hoc on a
+* **JSON-LD's more advanced mechanisms are an option**--not invoked ad hoc on a
 message-by-message basis, but specified in the formal description of a message
 family. You will know how much JSON-LD is relevant to a protocol when you
 implement it. In general, the community will want to discuss usage of new
 JSON-LD constructs before embracing them in protocols with broad interoperability
 intentions, because of the [goal articulated above](#goal).
 
-* __The decorator concept in DIDComm is orthogonal to JSON-LD__, and is far more likely
+* **The decorator concept in DIDComm is orthogonal to JSON-LD**, and is far more likely
 to be relevant to your early learning. See the [Decorator RFC](../0011-decorators/README.md).
 
 That's it.

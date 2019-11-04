@@ -81,11 +81,11 @@ DIDComm.
 
 The DIDComm design attempts to be:
 
-1. __Secure__
-2. __Private__
-3. __Interoperable__
-4. __Transport-agnostic__
-5. __Extensible__
+1. **Secure**
+2. **Private**
+3. **Interoperable**
+4. **Transport-agnostic**
+5. **Extensible**
 
 As a list of buzz words, this may elicit nods rather than surprise.
 However, several items have deep ramifications.

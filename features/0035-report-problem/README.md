@@ -66,14 +66,14 @@ basis for in-flight messaging by moving from one device to another).
 
 All of the following challenges need to be addressed.
 
-1. __Report problems to external parties interacting with us__.
+1. **Report problems to external parties interacting with us**.
   For example, AliceCorp has to be able to tell Bob that it can’t issue the
   credential he requested because his payment didn’t go through.
-2. __Report problems to other entities inside our own domain__. For example,
+2. **Report problems to other entities inside our own domain**. For example,
   AliceCorp’s agent #1 has to be able to report to AliceCorp agent #2 that
   it is out of disk space.
-3. __Report in a way that provides human beings with useful context and guidance
-  to troubleshoot__.
+3. **Report in a way that provides human beings with useful context and guidance
+  to troubleshoot**.
   Most developers know of cases where error reporting was technically correct but
   completely useless. Bad communication about problems is one of the most common
   causes of UX debacles. Humans using agents will speak different languages, have
@@ -81,16 +81,16 @@ All of the following challenges need to be addressed.
   resources. They may lack context about what their agents are doing, such as when
   a DIDComm interaction occurs as a result of scheduled or policy-driven actions.
   This makes context and guidance crucial.
-4. __Map a problem backward in time, space, and circumstances__, so when it is
+4. **Map a problem backward in time, space, and circumstances**, so when it is
   studied, its original context is available. This is particularly difficult
   in DIDComm, which is transport-agnostic and inherently asynchronous, and
   which takes place on an inconsistently connected digital landscape.
-5. __Support localization__.
-6. __Provide consistent, locale-independent problem codes__, not just localized text,
+5. **Support localization**.
+6. **Provide consistent, locale-independent problem codes**, not just localized text,
   so problems can be researched in knowledge bases, on Stack Overflow, and in
   other internet forums, regardless of the natural language in which a message
   displays. This also helps meaning remain stable as wording is tweaked.
-7. __Provide a registry of well known problem codes__ that are carefully defined and
+7. **Provide a registry of well known problem codes** that are carefully defined and
   localized, to maximize shared understanding. Maintaining an exhaustive list
   of all possible things that can go wrong with all possible agents in all possible
   interactions is completely unrealistic. However, it may be possible to maintain
@@ -98,10 +98,10 @@ All of the following challenges need to be addressed.
   financial transaction, a code for “insufficient funds” might have near-universal
   usefulness. Compare the posix error inventory in [errorno.h](
   https://pubs.opengroup.org/onlinepubs/009695399/basedefs/errno.h.html).
-8. Facilitate automated problem handling by agents, not just manual handling by humans.
+8. **Facilitate automated problem handling by agents, not just manual handling by humans**.
   Perfect automation may be impossible, but high levels of automation should be
   doable.
-9. Clarify how the problem affects an in-progress interaction. Does a failure to
+9. **Clarify how the problem affects an in-progress interaction**. Does a failure to
   process payment reset the interaction to the very beginning of the protocol, or
   just back to the previous step, where payment was requested? This requires problems
   to be [matched in a formal way to the state machine](

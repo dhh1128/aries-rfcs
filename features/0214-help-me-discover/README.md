@@ -29,7 +29,7 @@ This is the "Help Me Discover" protocol, version 1.0. It is uniquely identified 
 
 ### Roles and States
 
-This protocol embodies a standard request-response pattern, and therefore has __requester__ and __responder__ roles. A `request` message describes what's wanted. A `response` message conveys whatever knowledge the responder wants to offer to be helpful. Standard state evolution applies:
+This protocol embodies a standard request-response pattern, and therefore has **requester** and **responder** roles. A `request` message describes what's wanted. A `response` message conveys whatever knowledge the responder wants to offer to be helpful. Standard state evolution applies:
 
 ![diagram](https://github.com/hyperledger/aries-rfcs/raw/master/concepts/0003-protocols/request-response.png)
 
@@ -85,7 +85,7 @@ In plain language, this particular request says:
 
 >Please help me discover someone who's a mechanic, and who possesses at least 2 of the following 3 characteristis: they have an average rating of at least 3.5 stars; they have an ASE certification; they reside in zip code 12345 or 12346.
 
-The data type of `desired` is a __criterion__ object. A criterion object can be of type `all` (boolean AND), type `any` (boolean OR), or `op` (a particular attribute is tested against a value with a specific operator). The `all` and `any` objects can nest one another arbitrarily deep.
+The data type of `desired` is a __criterion object__. A criterion object can be of type `all` (boolean AND), type `any` (boolean OR), or `op` (a particular attribute is tested against a value with a specific operator). The `all` and `any` objects can nest one another arbitrarily deep.
 
 Parsing these criteria, and performing matches against them, can be done with the SGL library, which has ports for JavaScript and python. Other ports should be trivial; it's only a couple hundred lines of code. The hardest part of the work is giving the library an object model that contains candidates against which matching can be done.
 

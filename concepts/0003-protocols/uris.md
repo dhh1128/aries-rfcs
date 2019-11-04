@@ -5,7 +5,7 @@ conventions.
 
 ### MTURI
 
-A __message type URI__ (MTURI) identifies message types unambiguously.
+A __message type URI__ (__MTURI__) is a URI that identifies message types unambiguously.
 Standardizing its format is important because it is parsed by agents that
 will map messages to handlers--basically, code will look at this string and
 say, "Do I have something that can handle this message type inside protocol
@@ -56,9 +56,9 @@ with no human mediation involved.
 
 ### PIURI
 
-A shorter URI that follows the same conventions but lacks the
+A shorter URI that follows the same conventions an an MTIRU but lacks the
 `message-type-name` portion is called a __protocol identifier URI__
-(PIURI).
+(__PIURI__).
  
  
 ![PIURI structure](piuri-structure.png)

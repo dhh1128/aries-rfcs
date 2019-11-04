@@ -26,7 +26,7 @@ following [PIURI](https://github.com/hyperledger/aries-rfcs/blob/master/concepts
     
 ### Roles
 
-There are 2 roles in the protocol: __Recorder__ and __Caller__. These role names parallel the roles in a physical coin flip: the _Recorder_ performs a process that freezes/records the state of a flipped coin, and the _Caller_ announces the state that they predict, before the state is known. If the caller predicts the state correctly, then the caller chooses what happens next; otherwise, the recorder chooses.
+There are 2 roles in the protocol: **Recorder** and **Caller**. These role names parallel the roles in a physical coin flip: the _Recorder_ performs a process that freezes/records the state of a flipped coin, and the _Caller_ announces the state that they predict, before the state is known. If the caller predicts the state correctly, then the caller chooses what happens next; otherwise, the recorder chooses.
 
 ### Algorithm
 

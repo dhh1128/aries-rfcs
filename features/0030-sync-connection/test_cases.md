@@ -30,7 +30,7 @@ DID Doc:
 ### Scenarios (each starts over at the initial conditions)
 
 1. A.1 attempts to rotate its key by sending a `sync_state` message to A.2.
-__Expected outcome__: Should receive ACK, and A.2's state should be updated.
+**Expected outcome**: Should receive ACK, and A.2's state should be updated.
 Once A.1 receives the ACK, it should commit the pending change in its own
  key. Until it receives the ACK, it should NOT commit the pending change.
 
@@ -38,16 +38,14 @@ Once A.1 receives the ACK, it should commit the pending change in its own
 updated.
 
 3. A.1 attempts to send a message to B.1, using the `~relstate` decorator, claiming
-states with `hash(A.state[0])` and `hash(B.state[0])`. __Expected outcome__:
+states with `hash(A.state[0])` and `hash(B.state[0])`. **Expected outcome**:
 B.1 accepts the message.
 
-4. As #3, except that A.1 claims the current states are random hashes. __Expected
-outcome__: B.1 sends back a problem report, plus two `sync_state` messages (one
+4. As #3, except that A.1 claims the current states are random hashes. **Expected outcome**: B.1 sends back a problem report, plus two `sync_state` messages (one
 with `who` = "me" and one with `who` = "you"). Each has an
 empty `deltas` array and `base_state` = the correct base state hash.
 
 5. A.1 attempts to rotate the key for A.2 by sending a `sync_state` message to
-any other agent. __Expected outcome__: change is rejected with a __problem report__
-that points out that A.1 is not authorized to rotate any key other than itself.
+any other agent. **Expected outcome**: change is rejected with a `problem report` that points out that A.1 is not authorized to rotate any key other than itself.
 
  

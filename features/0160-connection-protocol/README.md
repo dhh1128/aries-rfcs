@@ -21,7 +21,7 @@ We will explain how a connection is established, with the roles, states, and mes
 
 ### Roles
 
-Connection uses two roles: __inviter__ and __invitee__.
+Connection uses two roles: **inviter** and **invitee**.
 
 The _inviter_ is the party that initiates the protocol with an `invitation` message. This party
 must already have an agent and be capable of creating DIDs and endpoints

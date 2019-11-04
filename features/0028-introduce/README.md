@@ -78,9 +78,9 @@ to Heathrow based on Delta's asertion.]
 There are three [TODO:do we want to support introducing more than 2 at a time?]
 participants in the protocol, but only two roles.
 
-The __introducer__ begins the process and must know the other two parties.
+The **introducer** begins the process and must know the other two parties.
 Alice is the introducer in the diagram above. The other two participants
-are both __introducees__.
+are both **introducees**.
 
 ### States
 

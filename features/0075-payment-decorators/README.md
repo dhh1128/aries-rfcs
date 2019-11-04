@@ -46,7 +46,7 @@ Notice that this flow does not include anything coming back to the payer. In thi
 the PaymentResponse structure embodies a response from the payer to the payer's own agent,
 expressing choices about which credit card to use and which shipping options are desired;
 it's not a response that crosses identity boundaries. That's reasonable because this is
-the Payment __Request__ API, not a Payment Roundtrip API. It's only about requesting
+the Payment **Request** API, not a Payment Roundtrip API. It's only about requesting
 payments, not completing payments or reporting results. Also, each payment method will
 have unique APIs for fulfillment and receipts; the W3C Payment Request spec does not
 attempt to harmonize them, though some work in that direction is underway in the

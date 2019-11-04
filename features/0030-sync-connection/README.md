@@ -28,12 +28,12 @@ how peers maintain their relationship thereafter, as DID docs evolve.
 
 ## Tutorial
 
->__Note 1__: This RFC assumes you are thoroughly familiar with terminology and
+>**Note 1**: This RFC assumes you are thoroughly familiar with terminology and
 constructs from the [peer DID method spec](
 https://openssi.github.io/peer-did-method-spec). Check there if you need
 background.
 
->__Note 2__: Most protocols between identity owners deal only with messages that
+>**Note 2**: Most protocols between identity owners deal only with messages that
 cross a domain boundary--what Alice sends to Bob, or vice versa. What Alice
 does internally is generally none of Bob's business, since interoperability
 is a function of messages that are passed to external parties, not

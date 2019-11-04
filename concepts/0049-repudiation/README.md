@@ -34,8 +34,8 @@ If Carol receives a message that purports to come from Alice, she may naturally 
 This is a fair question, and an important one. There are two ways to
 answer it:
 
-* Alice can send in a way that's __repudiable__
-* Alice can send in a way that's __non-repudiable__
+* Alice can send in a way that's **repudiable**
+* Alice can send in a way that's **non-repudiable**
 
 Both of these approaches can answer Carol's question, but they differ
   in _who can trust the answer_. If Carol knows Alice is the sender,
@@ -44,13 +44,13 @@ Both of these approaches can answer Carol's question, but they differ
  to others, then we say the message is _non-repudiable_.
 
 The repudiable variant is accomplished with a technique called
-__authenticated encryption__.
+**authenticated encryption**.
 
 The non-repudiable variant is accomplished with digital signatures.
 
 #### How Authenticated Encryption Works
 
-Repudiable sending may sound mysterious, but it's actually quite simple.
+__Repudiable__ sending may sound mysterious, but it's actually quite simple.
  Alice and Carol can negotiate a shared secret and trust one another not to
  leak it. Thereafter, if Alice sends Carol a message that uses the shared
  secret (e.g., it's encrypted by a negotiated symmetric
@@ -61,7 +61,7 @@ Repudiable sending may sound mysterious, but it's actually quite simple.
 
 #### Signatures
 
-Non-repudiable messages are typically accomplished with digital
+__Non-repudiable__ messages are typically accomplished with digital
  signatures. With signatures, everyone can examine a signature to verify
  its provenance.
 
