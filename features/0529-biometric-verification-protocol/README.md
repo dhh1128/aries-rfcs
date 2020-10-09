@@ -3,7 +3,7 @@
 - Authors: [Daniel Hardman](daniel.hardman@gmail.com), [Tiara Johnson](tiaramary@gmail.com)
 - Status: [PROPOSED](/README.md#proposed)
 - Since: 2020-08-19
-- Status Note: Under review by community and biometrics experts. Builds on concepts in [RFC 0231: Biometric Service Provider](../../concepts/0231-biometric-service-provider/READMe.md). Sister protocol to [RFC 0528: Biometric Enrollment Protocol](../0528-biometric-enrollment-protocol/README.md)
+- Status Note: Under review by community and biometrics experts. Builds on concepts in [RFC 0231: Biometric Service Provider](../../concepts/0231-biometric-service-provider/README.md). Sister protocol to [RFC 0528: Biometric Enrollment Protocol](../0528-biometric-enrollment-protocol/README.md)
 - Start Date: 2020-08-19
 - Tags: [feature](/tags.md#feature), [protocol](/tags.md#protocol), [biometrics](/tags.md#biometrics)
 
